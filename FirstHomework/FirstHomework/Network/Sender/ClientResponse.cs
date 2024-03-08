@@ -3,18 +3,18 @@ using FirstHomework.Network.Sender.Response;
 
 namespace FirstHomework.Network.Sender;
 
-public class ClientResponseSender
+public class ClientResponse
 {
-    private readonly ClientResponseSender _sender;
+    private readonly ClientResponse _sender;
     private TcpClient _client = null!;
     private ResponseModel _responseModel = null!;
 
-    public ClientResponseSender(TcpClient client, int statusCode, string responseContent = "")
+    public ClientResponse(TcpClient client, int statusCode, string responseContent = "")
         : this(client, new ResponseStatusModel(statusCode), responseContent)
     {
 
     }
-    public ClientResponseSender(TcpClient client, ResponseStatusModel status, string responseContent = "")
+    public ClientResponse(TcpClient client, ResponseStatusModel status, string responseContent = "")
     {
         if (_sender is null)
         {

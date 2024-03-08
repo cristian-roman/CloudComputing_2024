@@ -24,21 +24,21 @@ public class ServerNetwork(string networkConfigFilePath)
             var client = await tcpListener.AcceptTcpClientAsync();
             Console.WriteLine("Client with IP " + client.Client.RemoteEndPoint + " connected");
 
-            ClientResponseSender? responseSender = null;
+            ClientResponse? responseSender = null;
             try
             {
                 var request = await RequestProcessor.ParseRequest(client);
 
-                responseSender = new ClientResponseSender(client, 200, "Hello, World!");
+                responseSender = new ClientResponse(client, 200, "Hello, World!");
             }
             catch (RequestProcessingException e)
             {
-                responseSender = new ClientResponseSender(client, e.Status, e.Message);
+                responseSender = new ClientResponse(client, e.Status, e.Message);
                 Console.WriteLine(e.Message);
             }
             catch (Exception e)
             {
-                responseSender = new ClientResponseSender(client, 500);
+                responseSender = new ClientResponse(client, 500);
                 Console.WriteLine(e.Message);
             }
             finally

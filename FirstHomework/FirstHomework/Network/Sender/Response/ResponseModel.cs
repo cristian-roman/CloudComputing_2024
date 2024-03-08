@@ -11,8 +11,15 @@ public class ResponseModel(ResponseStatusModel responseStatus, string message, H
 
     public byte[] ToBytes()
     {
-        var responseLine = $"{Protocol} {ResponseStatus.StatusCode} {ResponseStatus.StatusMessage}\n";
+        var responseLine = $"{Protocol} {ResponseStatus.StatusCode} {ResponseStatus.StatusMessage}";
         var headers = string.Join('\n', Headers.Dict.Select(header => $"{header.Key}: {header.Value}"));
         return Encoding.UTF8.GetBytes($"{responseLine}\n{headers}\n\n{Message}");
+    }
+
+    public string ToString()
+    {
+        var responseLine = $"{Protocol} {ResponseStatus.StatusCode} {ResponseStatus.StatusMessage}";
+        var headers = string.Join('\n', Headers.Dict.Select(header => $"{header.Key}: {header.Value}"));
+        return $"{responseLine}\n{headers}\n\n{Message}";
     }
 }
