@@ -1,0 +1,28 @@
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\bin\Debug\net8.0\FirstHomework.exe
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\bin\Debug\net8.0\FirstHomework.deps.json
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\bin\Debug\net8.0\FirstHomework.runtimeconfig.json
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\bin\Debug\net8.0\FirstHomework.dll
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\bin\Debug\net8.0\FirstHomework.pdb
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.AssemblyInfoInputs.cache
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.AssemblyInfo.cs
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.csproj.CoreCompileInputs.cache
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.dll
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\obj\Debug\net8.0\refint\FirstHomework.dll
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.pdb
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.genruntimeconfig.cache
+C:\Users\roman\Projects\Cloud Computing\FirstHomework\FirstHomework\obj\Debug\net8.0\ref\FirstHomework.dll
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\bin\Debug\net8.0\FirstHomework.exe
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\bin\Debug\net8.0\FirstHomework.deps.json
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\bin\Debug\net8.0\FirstHomework.runtimeconfig.json
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\bin\Debug\net8.0\FirstHomework.dll
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\bin\Debug\net8.0\FirstHomework.pdb
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.AssemblyInfoInputs.cache
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.AssemblyInfo.cs
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.csproj.CoreCompileInputs.cache
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.dll
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\obj\Debug\net8.0\refint\FirstHomework.dll
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.pdb
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.genruntimeconfig.cache
+C:\Users\roman\Projects\CloudComputing\FirstHomework\FirstHomework\obj\Debug\net8.0\ref\FirstHomework.dll
