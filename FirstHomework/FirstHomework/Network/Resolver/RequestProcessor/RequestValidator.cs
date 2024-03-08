@@ -1,5 +1,4 @@
-﻿using FirstHomework.Network.Resolver.RequestProcessor.Exceptions;
-using FirstHomework.Network.Resolver.RequestProcessor.Exceptions.Body.BodyHeaders;
+﻿using FirstHomework.Network.Resolver.RequestProcessor.Exceptions.Body.BodyHeaders;
 using FirstHomework.Network.Resolver.RequestProcessor.Exceptions.Headers;
 using FirstHomework.Network.Resolver.RequestProcessor.Exceptions.Method;
 using FirstHomework.Network.Resolver.RequestProcessor.Exceptions.Path;

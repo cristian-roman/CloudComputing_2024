@@ -76,7 +76,7 @@ public class RequestModel
 
         if (bodyBeginIndex == -1)
         {
-            bodyBeginIndex = request.Length;
+            bodyBeginIndex = request.Length-1;
         }
 
         var headersAsString = request[firstLineIndex..bodyBeginIndex];
@@ -114,13 +114,19 @@ public class RequestModel
             header = header.Trim();
             value = value.Trim();
 
-            if (value[^1] == '\r')
+            if (!string.IsNullOrEmpty(value))
             {
-                value = value[..^1];
+                if (value == "\r")
+                {
+                    value = string.Empty;
+                }
+                else if (value[^1] == '\r')
+                {
+                    value = value[..^1];
+                }
             }
 
             RequestValidator.ValidateHeader(header, value);
-
             answer[header] = value;
         }
 
