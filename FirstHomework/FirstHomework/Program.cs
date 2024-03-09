@@ -1,4 +1,5 @@
 ﻿using FirstHomework.Network;
+using FirstHomework.Network.Resolver.RequestRouter;
 
 namespace FirstHomework;
 
@@ -24,7 +25,7 @@ public static class Program
     private static async Task Main(string[] args)
     {
         var networkConfigFilePath = GetNetworkConfigFilePath(args);
-
+        Router.AddRoutes();
         var server = new ServerNetwork(networkConfigFilePath);
         await server.StartServer();
     }

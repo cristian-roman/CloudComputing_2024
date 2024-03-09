@@ -29,7 +29,10 @@ public class ServerNetwork(string networkConfigFilePath)
             {
                 var request = await RequestProcessor.ParseRequest(client);
 
-                responseSender = new ClientResponse(client, 200, "Hello, World!");
+                var route = RequestProcessor.RouteRequest(request);
+
+                var message = route(request);
+                responseSender = new ClientResponse(client, 200, message);
             }
             catch (RequestProcessingException e)
             {

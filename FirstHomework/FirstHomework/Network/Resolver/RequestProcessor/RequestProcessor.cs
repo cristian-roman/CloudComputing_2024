@@ -1,6 +1,7 @@
 ﻿using System.Net.Sockets;
 using System.Text;
 using FirstHomework.Network.Resolver.RequestProcessor.Exceptions.Request;
+using FirstHomework.Network.Resolver.RequestRouter;
 
 namespace FirstHomework.Network.Resolver.RequestProcessor;
 
@@ -21,4 +22,9 @@ public static class RequestProcessor
         return new RequestModel(request);
     }
 
+    public static Func<RequestModel, string> RouteRequest(RequestModel request)
+    {
+        var route = Router.GetRoute(request.Method, request.Path);
+        return route;
+    }
 }
