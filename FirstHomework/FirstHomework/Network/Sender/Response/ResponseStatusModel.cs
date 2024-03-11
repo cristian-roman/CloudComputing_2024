@@ -55,6 +55,12 @@ public class ResponseStatusModel
                 StatusCode = 415;
                 StatusMessage = "Unsupported Media Type";
                 break;
+
+            case 422:
+                StatusCode = 422;
+                StatusMessage = "Unprocessable Entity";
+                break;
+
             case 431:
                 StatusCode = 431;
                 StatusMessage = "Request Header Fields Too Large";

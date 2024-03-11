@@ -5,17 +5,17 @@ namespace FirstHomework.DB.DbCommands;
 public class EventModel
 {
     [JsonPropertyName("id")]
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string EventName { get; set; }
+    public string? EventName { get; set; }
 
     [JsonPropertyName("begins")]
-    public DateTime Begins { get; set; }
+    public DateTime? Begins { get; set; }
 
     [JsonPropertyName("ends")]
-    public DateTime Ends { get; set; }
+    public DateTime? Ends { get; set; }
 
     [JsonPropertyName("description")]
-    public string Description { get; set; }
+    public string? Description { get; set; }
 }
