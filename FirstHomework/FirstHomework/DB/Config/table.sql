@@ -1,0 +1,1 @@
+﻿CREATE TABLE evenimente (name text, description text, ends timestamp without time zone, id uuid, begins timestamp without time zone);
