@@ -61,6 +61,9 @@ public static class EventsAPI
         EventsRequestValidator.ValidateBodyUnfilled(request);
         var events = await DB.DbCommands.Events.GetEvents();
 
+        if (events.Count == 0)
+            return new APIResponse("No events found.", new ResponseStatusModel(404));
+
         StringBuilder response = new();
         response.Append('[');
         foreach (var eventModel in (List<EventModel>)events)
@@ -198,6 +201,12 @@ public static class EventsAPI
         }
     }
 
+    /// <summary>
+    /// Shows events that overlap with the given time frame.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+
     [Route("GET", "/events/{timestamp}:{timestamp}")]
     public static async Task<APIResponse> GetEventsByTime(RequestModel request)
     {
@@ -220,4 +229,28 @@ public static class EventsAPI
 
         return new APIResponse(response.ToString(), new ResponseStatusModel(200));
     }
+
+    /// <summary>
+    /// Deletes events that are within the given time frame.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [Route("DELETE", "/events/{timestamp}:{timestamp}")]
+    public static async Task<APIResponse> DeleteEventsByTime(RequestModel request)
+    {
+        EventsRequestValidator.ValidateBodyUnfilled(request);
+        var timestamps = await ApiUtils.ExtractDatesFromPath(request);
+
+        try
+        {
+            await DB.DbCommands.Events.DeleteEventsByTime(timestamps[0], timestamps[1]);
+        }
+        catch (ResourceNotFoundException e)
+        {
+            return new APIResponse(e.Message, new ResponseStatusModel(404));
+        }
+
+        return new APIResponse("Events deleted successfully.", new ResponseStatusModel(200));
+    }
+
 }

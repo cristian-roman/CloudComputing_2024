@@ -26,7 +26,7 @@ public static class Events
         await DbLoader.Connection.CloseAsync();
     }
 
-    public static async Task<object> GetEvents()
+    public static async Task<List<EventModel>> GetEvents()
     {
         DbLoader.Connection!.Open();
         await using var cmd = new NpgsqlCommand("SELECT * FROM evenimente", DbLoader.Connection);
@@ -128,8 +128,7 @@ public static class Events
     {
         DbLoader.Connection!.Open();
         await using var cmd = new NpgsqlCommand("SELECT * FROM evenimente WHERE " +
-                                                "((@begins >= begins AND begins <= @ends) OR" +
-                                                "(@begins >= ends AND ends <=@ends))", DbLoader.Connection);
+                                                "((begins <= @ends AND ends >= @begins))", DbLoader.Connection);
         cmd.Parameters.AddWithValue("begins", begins);
         cmd.Parameters.AddWithValue("ends", ends);
         await using var reader = await cmd.ExecuteReaderAsync();
@@ -147,5 +146,21 @@ public static class Events
         }
         await DbLoader.Connection.CloseAsync();
         return events;
+    }
+
+    public static async Task DeleteEventsByTime(DateTime timestamp, DateTime dateTime)
+    {
+        DbLoader.Connection!.Open();
+        await using var cmd = new NpgsqlCommand("DELETE FROM evenimente WHERE " +
+                                                "@begins <= begins AND ends <= @ends", DbLoader.Connection);
+        cmd.Parameters.AddWithValue("begins", timestamp);
+        cmd.Parameters.AddWithValue("ends", dateTime);
+        var rowAffected = await Task.Run(()=>cmd.ExecuteNonQuery());
+        await DbLoader.Connection.CloseAsync();
+
+        if (rowAffected == 0)
+        {
+            throw new ResourceNotFoundException("No events found in the given time frame.");
+        }
     }
 }
