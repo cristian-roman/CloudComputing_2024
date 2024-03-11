@@ -52,9 +52,8 @@ public static class EventsRequestValidator
         }
     }
 
-    public static bool MoreDataThenRequiredDetected(JsonDocument eventJsonModel)
+    public static bool MoreDataThenRequiredDetected(JsonDocument eventJsonModel, IEnumerable<string> expectedProperties)
     {
-        var expectedProperties = new List<string> { "name", "begins", "ends", "description" };
         var detectedProperties = eventJsonModel.RootElement.EnumerateObject().Select(property => property.Name).ToList();
 
         return detectedProperties.Except(expectedProperties).Any();

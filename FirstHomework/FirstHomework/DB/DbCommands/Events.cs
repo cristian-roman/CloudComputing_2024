@@ -108,4 +108,19 @@ public static class Events
         await DbLoader.Connection.CloseAsync();
         return null;
     }
+
+    public static async Task PatchEventDescription(EventModel eventModel)
+    {
+        DbLoader.Connection!.Open();
+        await using var cmd = new NpgsqlCommand("UPDATE evenimente SET description = @description WHERE id = @id", DbLoader.Connection);
+        cmd.Parameters.AddWithValue("id", eventModel.Id!);
+        cmd.Parameters.AddWithValue("description", eventModel.Description!);
+        var rowsAffected = await Task.Run(()=>cmd.ExecuteNonQuery());
+        await DbLoader.Connection.CloseAsync();
+
+        if (rowsAffected == 0)
+        {
+            throw new ResourceNotFoundException("No event with the given id was found.");
+        }
+    }
 }

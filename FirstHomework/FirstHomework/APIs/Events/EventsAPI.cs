@@ -13,6 +13,8 @@ namespace FirstHomework.APIs.Events;
 
 public static class EventsAPI
 {
+    private static readonly string[] ExpectedProperties = ["name", "begins", "ends", "description"];
+
     [Route("POST", "/events")]
     public static async Task<APIResponse> CreateEvent(RequestModel request)
     {
@@ -26,7 +28,7 @@ public static class EventsAPI
         catch (JsonException)
         {
             throw new UnexpectedBodyException
-            ("Request body does not have the proper data types types:\n" +
+            ("Request body does not have the proper data types type:\n" +
              "\"name\" -> string\n" +
              "\"begins\" -> the ISO 8601 combined date-time format\n" +
              "\"ends\" -> the ISO 8601 combined date-time format\n" +
@@ -36,7 +38,7 @@ public static class EventsAPI
         EventsRequestValidator.CheckRequiredFields(eventModel);
         await DB.DbCommands.Events.CreateEvent(eventModel!);
 
-        if (!EventsRequestValidator.MoreDataThenRequiredDetected(request.Body!))
+        if (!EventsRequestValidator.MoreDataThenRequiredDetected(request.Body!, ExpectedProperties))
             return new APIResponse("Event created successfully.", new ResponseStatusModel(201));
 
         string warningMessage;
@@ -72,6 +74,7 @@ public static class EventsAPI
         return new APIResponse(response.ToString(), new ResponseStatusModel(200));
     }
 
+
     [Route("PUT", "/event/{id}")]
     public static async Task<APIResponse> ModifyEvent(RequestModel request)
     {
@@ -85,7 +88,7 @@ public static class EventsAPI
         catch (JsonException)
         {
             throw new UnexpectedBodyException
-            ("Request body does not have the proper data types types:\n" +
+            ("Request body does not have the proper data types:\n" +
              "\"name\" -> string\n" +
              "\"begins\" -> the ISO 8601 combined date-time format\n" +
              "\"ends\" -> the ISO 8601 combined date-time format\n" +
@@ -113,7 +116,7 @@ public static class EventsAPI
         }
 
 
-        if (!EventsRequestValidator.MoreDataThenRequiredDetected(request.Body!))
+        if (!EventsRequestValidator.MoreDataThenRequiredDetected(request.Body!, ExpectedProperties))
             return new APIResponse("Event modified successfully.", new ResponseStatusModel(200));
 
         return new APIResponse("Event modified successfully.\n" +
@@ -145,11 +148,53 @@ public static class EventsAPI
 
         var id = (await ApiUtils.ExtractIdsFromPath(request))[0];
 
-        EventModel? dbEvent = null;
-        dbEvent = await DB.DbCommands.Events.GetEvent(new Guid(id));
+        var dbEvent = await DB.DbCommands.Events.GetEvent(new Guid(id));
 
         return dbEvent == null ?
             new APIResponse("No event with the given id was found.", new ResponseStatusModel(404)) :
             new APIResponse(JsonSerializer.Serialize(dbEvent), new ResponseStatusModel(200));
+    }
+
+    [Route("PATCH", "/event/{id}")]
+    public static async Task<APIResponse> PatchEventDescription(RequestModel request)
+    {
+        EventsRequestValidator.CheckNotNullBodyRequirement(request);
+
+        var id = (await ApiUtils.ExtractIdsFromPath(request))[0];
+        EventModel? eventModel = null;
+        try
+        {
+            eventModel = request.Body!.Deserialize<EventModel>();
+        }
+        catch (JsonException)
+        {
+            throw new UnexpectedBodyException
+            ("Request body does not have the proper data type:\n" +
+             "\"description\" -> string\n" +
+             "Only the description field is allowed to be modified with the patch method.");
+        }
+
+        if (eventModel!.Description == null)
+        {
+            throw new PropertyMissingException
+                ("Request body requires a property named \"description\" of type string.");
+        }
+
+        if (EventsRequestValidator.MoreDataThenRequiredDetected(request.Body!, new List<string> {"description"}))
+        {
+            throw new UnexpectedBodyException
+                ("Extra fields were detected. Patch method only allows the description field to be modified.");
+        }
+
+        eventModel.Id = new Guid(id);
+        try
+        {
+            await DB.DbCommands.Events.PatchEventDescription(eventModel);
+            return new APIResponse("Event description modified successfully.", new ResponseStatusModel(200));
+        }
+        catch (ResourceNotFoundException e)
+        {
+            return new APIResponse(e.Message, new ResponseStatusModel(404));
+        }
     }
 }
