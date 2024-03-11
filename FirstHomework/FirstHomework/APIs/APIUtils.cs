@@ -3,7 +3,7 @@ using FirstHomework.Network.Resolver.RequestProcessor;
 using FirstHomework.Network.Resolver.RequestRouter;
 namespace FirstHomework.APIs;
 
-public static class APIUtils
+public static class ApiUtils
 {
     public static Task<List<string>> ExtractIdsFromPath(RequestModel model)
     {

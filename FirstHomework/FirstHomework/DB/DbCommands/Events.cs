@@ -85,4 +85,27 @@ public static class Events
             throw new ResourceNotFoundException("No event with the given id was found.");
         }
     }
+
+    public static async Task<EventModel?> GetEvent(Guid guid)
+    {
+        DbLoader.Connection!.Open();
+        await using var cmd = new NpgsqlCommand("SELECT * FROM evenimente WHERE id = @id", DbLoader.Connection);
+        cmd.Parameters.AddWithValue("id", guid);
+        await using var reader = await cmd.ExecuteReaderAsync();
+        if (await reader.ReadAsync())
+        {
+            var eventModel = new EventModel
+            {
+                Id = reader.GetGuid(0),
+                EventName = reader.GetString(1),
+                Begins = reader.GetDateTime(2),
+                Ends = reader.GetDateTime(3),
+                Description = reader.IsDBNull(4) ? null : reader.GetString(4)
+            };
+            await DbLoader.Connection.CloseAsync();
+            return eventModel;
+        }
+        await DbLoader.Connection.CloseAsync();
+        return null;
+    }
 }

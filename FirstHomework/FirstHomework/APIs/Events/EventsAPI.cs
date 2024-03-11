@@ -100,7 +100,7 @@ public static class EventsAPI
                  "-> parameter for the description of the event. Optional when POST operation in use, mandatory for PUT\n");
         }
 
-        var id = (await APIUtils.ExtractIdsFromPath(request))[0];
+        var id = (await ApiUtils.ExtractIdsFromPath(request))[0];
         eventModel.Id = new Guid(id);
 
         try
@@ -126,7 +126,7 @@ public static class EventsAPI
     {
         EventsRequestValidator.ValidateBodyUnfilled(request);
 
-        var id = (await APIUtils.ExtractIdsFromPath(request))[0];
+        var id = (await ApiUtils.ExtractIdsFromPath(request))[0];
         try
         {
             await DB.DbCommands.Events.DeleteEvent(new Guid(id));
@@ -136,5 +136,20 @@ public static class EventsAPI
             return new APIResponse(e.Message, new ResponseStatusModel(404));
         }
         return new APIResponse("Event deleted successfully.", new ResponseStatusModel(200));
+    }
+
+    [Route("GET", "/event/{id}")]
+    public static async Task<APIResponse> GetEvent(RequestModel request)
+    {
+        EventsRequestValidator.ValidateBodyUnfilled(request);
+
+        var id = (await ApiUtils.ExtractIdsFromPath(request))[0];
+
+        EventModel? dbEvent = null;
+        dbEvent = await DB.DbCommands.Events.GetEvent(new Guid(id));
+
+        return dbEvent == null ?
+            new APIResponse("No event with the given id was found.", new ResponseStatusModel(404)) :
+            new APIResponse(JsonSerializer.Serialize(dbEvent), new ResponseStatusModel(200));
     }
 }
