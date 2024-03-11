@@ -1,0 +1,7 @@
+﻿{
+  "Host": "localhost",
+  "Port": "5432",
+  "DbName": "Calendar",
+  "User": "user-example",
+  "Password": "password-example"
+}
