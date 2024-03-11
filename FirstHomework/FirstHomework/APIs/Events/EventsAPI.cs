@@ -197,4 +197,27 @@ public static class EventsAPI
             return new APIResponse(e.Message, new ResponseStatusModel(404));
         }
     }
+
+    [Route("GET", "/events/{timestamp}:{timestamp}")]
+    public static async Task<APIResponse> GetEventsByTime(RequestModel request)
+    {
+        EventsRequestValidator.ValidateBodyUnfilled(request);
+        var timestamps = await ApiUtils.ExtractDatesFromPath(request);
+        var events = await DB.DbCommands.Events.GetEventsByTime(timestamps[0], timestamps[1]);
+
+        if(events.Count == 0)
+            return new APIResponse("No events found in the given time frame.", new ResponseStatusModel(404));
+
+        StringBuilder response = new();
+        response.Append('[');
+        foreach (var eventModel in events)
+        {
+            response.Append(JsonSerializer.Serialize(eventModel));
+            response.Append(',');
+        }
+
+        response[^1] = ']';
+
+        return new APIResponse(response.ToString(), new ResponseStatusModel(200));
+    }
 }

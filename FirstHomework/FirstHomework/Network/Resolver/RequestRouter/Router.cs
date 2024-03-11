@@ -33,6 +33,9 @@ public static partial class Router
         var regex = GuidRegex();
         path = regex.Replace(path, "{id}");
 
+        regex = DateRegex();
+        path = regex.Replace(path, "{timestamp}");
+
         var answer = Routes.FirstOrDefault
             (route => route.Key.Key == method && route.Key.Value == path);
         if (answer.Value is null)
@@ -45,4 +48,7 @@ public static partial class Router
 
     [GeneratedRegex(@"\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b")]
     public static partial Regex GuidRegex();
+
+    [GeneratedRegex(@"\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\b")]
+    public static partial Regex DateRegex();
 }

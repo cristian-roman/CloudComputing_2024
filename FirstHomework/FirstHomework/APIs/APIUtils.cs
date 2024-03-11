@@ -17,4 +17,17 @@ public static class ApiUtils
         }
         return Task.FromResult(ids);
     }
+
+    public static Task<List<DateTime>> ExtractDatesFromPath(RequestModel model)
+    {
+        var path = model.Path;
+        var regex = Router.DateRegex();
+        var matches = regex.Matches(path);
+        var dates = new List<DateTime>();
+        foreach (Match match in matches)
+        {
+            dates.Add(DateTime.Parse(match.Value));
+        }
+        return Task.FromResult(dates);
+    }
 }
