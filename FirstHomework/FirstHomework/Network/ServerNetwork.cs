@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System.Data.Common;
+using System.Net.Sockets;
 using FirstHomework.Network.Config;
 using FirstHomework.Network.Resolver.RequestProcessor;
 using FirstHomework.Network.Resolver.RequestProcessor.Exceptions;
@@ -29,14 +30,19 @@ public class ServerNetwork(string networkConfigFilePath)
             {
                 var request = await RequestProcessor.ParseRequest(client);
 
-                var route = RequestProcessor.RouteRequest(request);
+                var routeFunction = RequestProcessor.RouteRequest(request);
 
-                var message = route(request);
-                responseSender = new ClientResponse(client, 200, message);
+                var apiResponse = await routeFunction(request);
+                responseSender = new ClientResponse(client, apiResponse.Status, apiResponse.Message);
             }
             catch (RequestProcessingException e)
             {
                 responseSender = new ClientResponse(client, e.Status, e.Message);
+                Console.WriteLine(e.Message);
+            }
+            catch (KeyNotFoundException e)
+            {
+                responseSender = new ClientResponse(client, 405);
                 Console.WriteLine(e.Message);
             }
             catch (Exception e)

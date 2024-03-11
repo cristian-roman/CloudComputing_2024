@@ -1,11 +1,12 @@
 ﻿using System.Reflection;
+using FirstHomework.APIs;
 using FirstHomework.Network.Resolver.RequestProcessor;
 
 namespace FirstHomework.Network.Resolver.RequestRouter;
 
 public static class Router
 {
-    private static readonly Dictionary<KeyValuePair<string, string>, Func<RequestModel, string>> Routes = new();
+    private static readonly Dictionary<KeyValuePair<string, string>, Func<RequestModel, Task<APIResponse>>> Routes = new();
 
     public static void AddRoutes()
     {
@@ -20,12 +21,12 @@ public static class Router
             if (routeAttribute is not null)
             {
                 Routes.Add(new KeyValuePair<string, string>(routeAttribute.Method, routeAttribute.Path),
-                    (Func<RequestModel, string>) method.CreateDelegate(typeof(Func<RequestModel, string>)));
+                    (Func<RequestModel,Task<APIResponse>>) method.CreateDelegate(typeof(Func<RequestModel, Task<APIResponse>>)));
             }
         }
     }
 
-    public static Func<RequestModel, string> GetRoute(string method, string path)
+    public static Func<RequestModel, Task<APIResponse>> GetRoute(string method, string path)
     {
         return Routes[new KeyValuePair<string, string>(method, path)];
     }

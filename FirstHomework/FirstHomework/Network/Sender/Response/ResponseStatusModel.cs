@@ -16,6 +16,11 @@ public class ResponseStatusModel
                 StatusMessage = "OK";
                 break;
 
+            case 201:
+                StatusCode = 201;
+                StatusMessage = "Created";
+                break;
+
             case 400:
                 StatusCode = 400;
                 StatusMessage = "Bad Request";
@@ -24,6 +29,11 @@ public class ResponseStatusModel
             case 404:
                 StatusCode = 404;
                 StatusMessage = "Not Found";
+                break;
+
+            case 405:
+                StatusCode = 405;
+                StatusMessage = "Method Not Allowed";
                 break;
 
             case 411:

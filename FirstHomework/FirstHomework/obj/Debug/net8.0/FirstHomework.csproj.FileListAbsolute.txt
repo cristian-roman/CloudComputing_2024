@@ -41,3 +41,8 @@ C:\Users\roman\Projects\CloudComputing_2023\FirstHomework\FirstHomework\obj\Debu
 C:\Users\roman\Projects\CloudComputing_2023\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.pdb
 C:\Users\roman\Projects\CloudComputing_2023\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.genruntimeconfig.cache
 C:\Users\roman\Projects\CloudComputing_2023\FirstHomework\FirstHomework\obj\Debug\net8.0\ref\FirstHomework.dll
+C:\Users\roman\Projects\CloudComputing_2023\FirstHomework\FirstHomework\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\roman\Projects\CloudComputing_2023\FirstHomework\FirstHomework\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\roman\Projects\CloudComputing_2023\FirstHomework\FirstHomework\bin\Debug\net8.0\Npgsql.dll
+C:\Users\roman\Projects\CloudComputing_2023\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.csproj.AssemblyReference.cache
+C:\Users\roman\Projects\CloudComputing_2023\FirstHomework\FirstHomework\obj\Debug\net8.0\FirstHomework.csproj.CopyComplete

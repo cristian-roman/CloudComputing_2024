@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "1eLhevBchBcJLi3bkR/NiohMsqL5fXFBLfZZBZ64jg+Bm4siwXWHL09GfZYCaTRhfkHHemlSs+rXmrHFsQdlMw==",
+  "dgSpecHash": "JcNqFngDKdYvF0tK6rR1L4FIIpWt7BHADpMn28m+Um2ouIlZ4QaEPtkPXykK7ijNeN+QnSKQ5oh5BIxUWSeVsw==",
   "success": true,
   "projectFilePath": "C:\\Users\\roman\\Projects\\CloudComputing_2023\\FirstHomework\\FirstHomework\\FirstHomework.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\roman\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\roman\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\roman\\.nuget\\packages\\npgsql\\8.0.2\\npgsql.8.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -1,14 +1,8 @@
 ﻿namespace FirstHomework.Network.Resolver.RequestRouter;
 
 [AttributeUsage(AttributeTargets.Method)]
-public class RouteAttribute : Attribute
+public class RouteAttribute(string method, string path) : Attribute
 {
-    public string Method { get; }
-    public string Path { get; }
-
-    public RouteAttribute(string method, string path)
-    {
-        Method = method;
-        Path = path;
-    }
+    public string Method { get; } = method;
+    public string Path { get; } = path;
 }

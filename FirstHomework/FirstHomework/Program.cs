@@ -1,4 +1,5 @@
-﻿using FirstHomework.Network;
+﻿using FirstHomework.DB.Config;
+using FirstHomework.Network;
 using FirstHomework.Network.Resolver.RequestRouter;
 
 namespace FirstHomework;
@@ -30,7 +31,7 @@ public static class Program
             throw new ArgumentException("Database config file path is required");
         }
 
-        var path = Path.Combine(args[1], "DatabaseConfig.json");
+        var path = Path.Combine(args[1], "DbConfig.json");
         if (!File.Exists(path))
         {
             throw new ArgumentException("Database config file does not exist");
@@ -43,6 +44,7 @@ public static class Program
     {
         var networkConfigFilePath = GetNetworkConfigFilePath(args);
         Router.AddRoutes();
+        DbLoader.LoadConnection(GetDatabaseConfigFilePath(args));
         var server = new ServerNetwork(networkConfigFilePath);
         await server.StartServer();
     }
