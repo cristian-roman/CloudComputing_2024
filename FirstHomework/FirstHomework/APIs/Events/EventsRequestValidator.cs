@@ -17,7 +17,7 @@ public static class EventsRequestValidator
              "\"name\" -> the name of the event,\n" +
              "\"begins\" -> the ISO 8601 combined date-time format of the event start,\n" +
              "\"ends\" -> the ISO 8601 combined date-time format of the event end,\n" +
-             "\"description\" -> optional parameter for the description of the event\n");
+             "\"description\" -> parameter for the description of the event. Optional when POST operation in use, mandatory for PUT\n");
         }
     }
 
@@ -58,5 +58,14 @@ public static class EventsRequestValidator
         var detectedProperties = eventJsonModel.RootElement.EnumerateObject().Select(property => property.Name).ToList();
 
         return detectedProperties.Except(expectedProperties).Any();
+    }
+
+    public static void ValidateBodyUnfilled(RequestModel request)
+    {
+        if (request.Body != null)
+        {
+            throw new UnexpectedBodyException
+            ("Request body is not expected for this request.");
+        }
     }
 }

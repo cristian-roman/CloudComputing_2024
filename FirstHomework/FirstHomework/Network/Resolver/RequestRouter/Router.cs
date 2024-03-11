@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
+using System.Text.RegularExpressions;
 using FirstHomework.APIs;
 using FirstHomework.Network.Resolver.RequestProcessor;
 
 namespace FirstHomework.Network.Resolver.RequestRouter;
 
-public static class Router
+public static partial class Router
 {
     private static readonly Dictionary<KeyValuePair<string, string>, Func<RequestModel, Task<APIResponse>>> Routes = new();
 
@@ -28,6 +29,20 @@ public static class Router
 
     public static Func<RequestModel, Task<APIResponse>> GetRoute(string method, string path)
     {
-        return Routes[new KeyValuePair<string, string>(method, path)];
+        //replace guid from path with {id}
+        var regex = GuidRegex();
+        path = regex.Replace(path, "{id}");
+
+        var answer = Routes.FirstOrDefault
+            (route => route.Key.Key == method && route.Key.Value == path);
+        if (answer.Value is null)
+        {
+            throw new KeyNotFoundException();
+        }
+
+        return answer.Value;
     }
+
+    [GeneratedRegex(@"\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b")]
+    public static partial Regex GuidRegex();
 }

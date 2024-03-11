@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Text;
 using FirstHomework.APIs;
 using FirstHomework.Network.Resolver.RequestProcessor.Exceptions.Request;
