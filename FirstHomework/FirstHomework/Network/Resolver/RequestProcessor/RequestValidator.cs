@@ -61,7 +61,7 @@ public static class RequestValidator
 
         switch (headerLabel)
         {
-            case "Content-Type" when headerValue != "application/json":
+            case "Content-Type" when !headerValue.Contains("application/json"):
                 throw new InvalidContentTypeHeaderException(headerValue);
             case "Content-Length" when !int.TryParse(headerValue, out _):
                 throw new InvalidContentLengthException(headerValue);

@@ -15,6 +15,7 @@ public class RequestModel
 
     public RequestModel(string request)
     {
+        Console.WriteLine(request);
         RequestValidator.ValidateRequest(request);
 
         FillMethodPathAndProtocol(request);
@@ -102,7 +103,8 @@ public class RequestModel
                 separatorIndex = headerLine.IndexOf(':');
                 if (separatorIndex == -1)
                 {
-                    throw new InvalidHeaderException(headerLine);
+                    continue;
+                    //throw new InvalidHeaderException(headerLine);
                 }
 
                 step = 2;

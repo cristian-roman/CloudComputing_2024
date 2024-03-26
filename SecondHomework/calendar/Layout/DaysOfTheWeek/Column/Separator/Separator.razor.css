@@ -1,0 +1,17 @@
+﻿.separator-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.separator {
+    border: 1px solid lightgray; /* Changed border color to light gray */
+    margin: 10px 0;
+    width: 3px; /* Adjusted width to create a vertical line */
+    background-color: lightgray; /* Changed background color to match border */
+}

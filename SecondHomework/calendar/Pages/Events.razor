@@ -1,0 +1,154 @@
+﻿@page "/"
+
+@using Calendar.Layout.CurrentLocation
+@using Calendar.Layout.CurrentWeather
+@using Calendar.Layout.DaysOfTheWeek
+@using Calendar.Services
+@inject DataService Ds
+@using Calendar.Models
+@inject HttpClient Http
+@using Newtonsoft.Json.Linq
+@inject DateCalculatorService Dc
+
+<div class="top-row">
+    <div class="current-information">
+        <CurrentLocation/>
+        <CurrentWeather/>
+    </div>
+</div>
+<div class="middle-box">
+    <h2>Your events in a single place</h2>
+</div>
+<div class="walk-through-container">
+        <button class="arrow-button" @onclick="() => ChangeDate(-1)">&#8592;</button> <!-- Left arrow -->
+    <lablel class="date-label"> @Ds.Date</lablel>
+    <button class="arrow-button" @onclick="() => ChangeDate(1)">&#8594;</button> <!-- Right arrow -->
+
+</div>
+<DaysOfTheWeek/>
+<div class="add-button" @onclick="ShowAddEventModal">+</div>
+
+<!-- Modal for adding events -->
+@if (showAddEventModal)
+{
+    <div class="modal" style="display: @addEventModalDisplay;">
+        <div class="modal-content">
+            <h2>Add Event</h2>
+            <input type="text" @bind="newEvent.name" placeholder="Event Name" />
+            <input type="datetime-local" @bind="newEvent.begins" />
+            <input type="datetime-local" @bind="newEvent.ends" />
+            <input type="text" @bind="newEvent.description" placeholder="Event Description" />
+            <button @onclick="AddEvent">Submit</button>
+            <button @onclick="CloseAddEventModal">Cancel</button>
+        </div>
+    </div>
+}
+
+@code {
+
+    private EventModel newEvent = new EventModel();
+    private bool showAddEventModal = false;
+    private string addEventModalDisplay = "none";
+
+    protected override async Task OnInitializedAsync()
+    {
+        showAddEventModal = true;
+        Ds.DateChanged += HandleDateChange;
+    }
+
+    private void HandleDateChange(object sender, EventArgs e)
+    {
+        StateHasChanged();
+    }
+
+    private async Task ChangeDate(int increment)
+    {
+        Ds.Date = Ds.Date.AddDays(7 * increment);
+        StateHasChanged();
+        try
+        {
+        Ds.Events= await FetchEventsData();
+
+        }catch(Exception e)
+        {
+            Ds.Events = new List<EventModel>();
+        }
+        Ds.OnDataFetched(EventArgs.Empty);
+    }
+
+    private async Task<List<EventModel>> FetchEventsData()
+    {
+        const string eventsBaseEndpoint = "http://localhost:5144/api/Calendar/events/overlapping_events";
+        var begins = Dc.CalculateFirstDayOfWeekAsync(Ds.Date).ToString("yyyy-MM-ddTHH:mm:ss");
+        var ends = Dc.CalculateLastDayOfWeekAsync(Ds.Date).ToString("yyyy-MM-ddTHH:mm:ss");
+        var response = await Http.GetAsync(eventsBaseEndpoint + $"?begins={begins}&ends={ends}");
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var jsonObject = JArray.Parse(responseContent);
+        return jsonObject.Select(item => new EventModel
+        {
+            id = Guid.Parse(item["id"].ToString()),
+            name = item["name"].ToString(),
+            description = item["description"].ToString(),
+            begins = DateTime.Parse(item["begins"].ToString()),
+            ends = DateTime.Parse(item["ends"].ToString())
+        }).ToList();
+    }
+
+    // Method to show the add event modal
+    private void ShowAddEventModal()
+    {
+        showAddEventModal = true;
+        addEventModalDisplay = "block";
+    }
+
+    // Method to close the add event modal
+    private void CloseAddEventModal()
+    {
+        showAddEventModal = false;
+        addEventModalDisplay = "none";
+    }
+
+    // Method to add a new event
+    private async Task AddEvent()
+    {
+        // Make a call to the server to add the event
+        // Assuming an API endpoint for adding events exists
+        if(newEvent.description == null)
+        {
+            newEvent.description = "";
+        }
+
+        var addEventEndpoint = "http://localhost:5144/api/Calendar/events";
+        var response = await Http.PostAsJsonAsync(addEventEndpoint, newEvent);
+
+        // Check if the request was successful
+        if (response.IsSuccessStatusCode)
+        {
+            // Event added successfully, close the modal
+            CloseAddEventModal();
+
+            // Optionally, you may want to refresh the event list after adding the event
+            await RefreshEvents();
+        }
+        else
+        {
+            // Handle error if adding event fails
+            // Optionally, you may want to show an error message to the user
+        }
+    }
+
+    // Method to refresh the event list
+    private async Task RefreshEvents()
+    {
+        try
+        {
+            Ds.Events = await FetchEventsData();
+        }
+        catch (Exception e)
+        {
+            Ds.Events = [];
+        }
+        Ds.OnDataFetched(EventArgs.Empty);
+    }
+
+}
