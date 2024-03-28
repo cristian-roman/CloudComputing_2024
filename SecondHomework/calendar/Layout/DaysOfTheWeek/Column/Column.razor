@@ -70,6 +70,7 @@
         EventsOfTheDay = [];
         FillEvents();
         Ds.DataFetched += HandleDataFetched;
+        Ds.LocalTimeChanged += HandleDataFetched;
 
         _originalEvent = new EventModel();
         _selectedEvent = new EventModel();
@@ -88,13 +89,20 @@
         try
         {
             var currentDay = Dc.DayOfTheWeekToDateTime(DayOfTheWeek, Ds.Date);
+            Console.WriteLine(currentDay + " " + Ds.Events.Count);
             EventsOfTheDay = [];
             var guidSet = new HashSet<Guid>();
 
             foreach (var t in Ds.Events)
             {
+                //set t.begin to 00 hour
+                t.begins = new DateTime(t.begins.Year, t.begins.Month, t.begins.Day, 0, 0, 0);
+
+                //set t.ends to 23:59 hour
+                t.ends = new DateTime(t.ends.Year, t.ends.Month, t.ends.Day, 23, 59, 59);
                 if(t.begins <= currentDay && t.ends >= currentDay)
                 {
+                    Console.WriteLine("True");
                     if (guidSet.Contains(t.id))
                     {
                         continue;
@@ -104,6 +112,8 @@
                     EventsOfTheDay.Add(t);
                 }
             }
+
+            StateHasChanged();
 
         }catch(Exception )
         {

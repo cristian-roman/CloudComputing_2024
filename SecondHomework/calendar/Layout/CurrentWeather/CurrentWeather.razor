@@ -41,12 +41,12 @@
                 var date = WeatherObj.CurrentTime;
                 //format the date in the format "yyyy-MM-ddTHH:mm:ss"
                 Ds.Date = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
-                Ds.OnDateChanged(EventArgs.Empty);
+                Ds.OnLocalTimeChanged(EventArgs.Empty);
             }
             catch (Exception)
             {
                 Ds.Date = DateTime.Now;
-                Ds.OnDateChanged(EventArgs.Empty);
+                Ds.OnLocalTimeChanged(EventArgs.Empty);
                 FetchingWeather = false;
                 WeatherObj = null;
             }

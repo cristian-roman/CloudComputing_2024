@@ -53,10 +53,10 @@
     protected override async Task OnInitializedAsync()
     {
         showAddEventModal = true;
-        Ds.DateChanged += HandleDateChange;
+        Ds.LocalTimeChanged += HandleLocalTimeChange;
     }
 
-    private void HandleDateChange(object sender, EventArgs e)
+    private void HandleLocalTimeChange(object sender, EventArgs e)
     {
         StateHasChanged();
     }
@@ -64,15 +64,17 @@
     private async Task ChangeDate(int increment)
     {
         Ds.Date = Ds.Date.AddDays(7 * increment);
+        Ds.OnLocalTimeChanged(EventArgs.Empty);
         StateHasChanged();
         try
         {
-        Ds.Events= await FetchEventsData();
+            Ds.Events= await FetchEventsData();
 
         }catch(Exception e)
         {
             Ds.Events = new List<EventModel>();
         }
+
         Ds.OnDataFetched(EventArgs.Empty);
     }
 

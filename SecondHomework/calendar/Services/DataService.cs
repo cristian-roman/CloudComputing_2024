@@ -18,11 +18,11 @@ public class DataService
         DataFetched?.Invoke(this, e);
     }
 
-    public event EventHandler DateChanged;
+    public event EventHandler LocalTimeChanged;
 
-    public virtual void OnDateChanged(EventArgs e)
+    public virtual void OnLocalTimeChanged(EventArgs e)
     {
-        DateChanged?.Invoke(this, e);
+        LocalTimeChanged?.Invoke(this, e);
     }
 
 }
