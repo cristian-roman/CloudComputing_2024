@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.3"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.3" PrivateAssets="all"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Layout\NOT IN USE\Counter.razor" />
+      <_ContentIncludedByDefault Remove="Layout\NOT IN USE\DefaultMainLayout.razor" />
+      <_ContentIncludedByDefault Remove="Layout\NOT IN USE\NavMenu.razor" />
+      <_ContentIncludedByDefault Remove="NOT IN USE\Counter.razor" />
+      <_ContentIncludedByDefault Remove="NOT IN USE\DefaultMainLayout.razor" />
+      <_ContentIncludedByDefault Remove="NOT IN USE\Home.razor" />
+      <_ContentIncludedByDefault Remove="NOT IN USE\NavMenu.razor" />
+      <_ContentIncludedByDefault Remove="NOT IN USE\Weather.razor" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,63 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = Calendar
+build_property.RootNamespace = Calendar
+build_property.ProjectDir = C:\Users\roman\Projects\CloudComputing_2023\SecondHomework\Calendar\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = false
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\roman\Projects\CloudComputing_2023\SecondHomework\Calendar
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/roman/Projects/CloudComputing_2023/SecondHomework/Calendar/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/roman/Projects/CloudComputing_2023/SecondHomework/Calendar/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/roman/Projects/CloudComputing_2023/SecondHomework/Calendar/Layout/CurrentLocation/CurrentLocation.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XEN1cnJlbnRMb2NhdGlvblxDdXJyZW50TG9jYXRpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-kunisnr2au
+
+[C:/Users/roman/Projects/CloudComputing_2023/SecondHomework/Calendar/Layout/CurrentWeather/CurrentWeather.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XEN1cnJlbnRXZWF0aGVyXEN1cnJlbnRXZWF0aGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-inbbrnyxnh
+
+[C:/Users/roman/Projects/CloudComputing_2023/SecondHomework/Calendar/Layout/DaysOfTheWeek/Column/Column.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XERheXNPZlRoZVdlZWtcQ29sdW1uXENvbHVtbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-gy5dmhum5q
+
+[C:/Users/roman/Projects/CloudComputing_2023/SecondHomework/Calendar/Layout/DaysOfTheWeek/Column/Separator/Separator.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XERheXNPZlRoZVdlZWtcQ29sdW1uXFNlcGFyYXRvclxTZXBhcmF0b3IucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-fxzkbcpi5t
+
+[C:/Users/roman/Projects/CloudComputing_2023/SecondHomework/Calendar/Layout/DaysOfTheWeek/DaysOfTheWeek.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XERheXNPZlRoZVdlZWtcRGF5c09mVGhlV2Vlay5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-zvknfkvqkl
+
+[C:/Users/roman/Projects/CloudComputing_2023/SecondHomework/Calendar/Layout/LoadingSpinner.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XExvYWRpbmdTcGlubmVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-g59lhv1qkf
+
+[C:/Users/roman/Projects/CloudComputing_2023/SecondHomework/Calendar/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-6yv3u6apbw
+
+[C:/Users/roman/Projects/CloudComputing_2023/SecondHomework/Calendar/Pages/Events.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-tvvzib0a0t

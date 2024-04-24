@@ -1,0 +1,106 @@
+﻿@using Calendar.Models
+@using Calendar.Services
+@inject DataService Ds
+@inject HttpClient Http
+@using Newtonsoft.Json.Linq
+@inject DateCalculatorService Dc
+
+<div class="weather-container">
+            @if (FetchingWeather)
+            {
+                <LoadingSpinner Size="h4"/>
+            }
+            else
+            {
+                @if (WeatherObj == null)
+                {
+                    <label>Weather data not available</label>
+                }
+                else
+                {
+                    <img src="@WeatherObj.ImageUrl" alt="Weather: @WeatherObj.ConditionText"/>
+                    <label id="bolded">@WeatherObj.Temperature °C</label>
+                }
+            }
+        </div>
+@code {
+    private bool FetchingWeather {get; set;}
+
+    private WeatherModel? WeatherObj { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        FetchingWeather = true;
+
+        if (Ds.Location != null)
+        {
+            try
+            {
+                WeatherObj = await FetchWeatherData(Ds.Location);
+                FetchingWeather = false;
+                var date = WeatherObj.CurrentTime;
+                //format the date in the format "yyyy-MM-ddTHH:mm:ss"
+                Ds.Date = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
+                Ds.OnLocalTimeChanged(EventArgs.Empty);
+            }
+            catch (Exception)
+            {
+                Ds.Date = DateTime.Now;
+                Ds.OnLocalTimeChanged(EventArgs.Empty);
+                FetchingWeather = false;
+                WeatherObj = null;
+            }
+
+            try
+            {
+                Ds.Events = await FetchEventsData();
+            }
+            catch (Exception)
+            {
+                Ds.Events = [];
+            }
+
+            Ds.OnDataFetched(EventArgs.Empty);
+        }
+    }
+
+    private async Task<WeatherModel> FetchWeatherData(string city)
+    {
+        const string weatherBaseEndpoint = "http://localhost:5144/api/Weather/current?city=";
+        var response = await Http.GetAsync(weatherBaseEndpoint + city);
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var jsonObject = JObject.Parse(responseContent);
+        return new WeatherModel
+        {
+            CurrentTime = DateTime.Parse(jsonObject["localTime"].ToString()),
+            Temperature = float.Parse(jsonObject["temperature"].ToString()),
+            ConditionText = jsonObject["conditionText"].ToString(),
+            ImageUrl = jsonObject["imageUrl"].ToString()
+        };
+
+        // return new WeatherModel
+        // {
+        //     CurrentTime = DateTime.Now,
+        //     Temperature = 20,
+        //     ConditionText = "Sunny",
+        //     ImageUrl = "https://cdn.weatherapi.com/weather/64x64/day/113.png"
+        // };
+    }
+
+    private async Task<List<EventModel>> FetchEventsData()
+    {
+        const string eventsBaseEndpoint = "http://localhost:5144/api/Calendar/events/overlapping_events";
+        var begins = Dc.CalculateFirstDayOfWeekAsync(Ds.Date).ToString("yyyy-MM-ddTHH:mm:ss");
+        var ends = Dc.CalculateLastDayOfWeekAsync(Ds.Date).ToString("yyyy-MM-ddTHH:mm:ss");
+        var response = await Http.GetAsync(eventsBaseEndpoint+$"?begins={begins}&ends={ends}");
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var jsonObject = JArray.Parse(responseContent);
+        return jsonObject.Select(item => new EventModel
+        {   id = Guid.Parse(item["id"].ToString()),
+            name = item["name"].ToString(),
+            description = item["description"].ToString(),
+            begins = DateTime.Parse(item["begins"].ToString()),
+            ends = DateTime.Parse(item["ends"].ToString())
+        }).ToList();
+    }
+}

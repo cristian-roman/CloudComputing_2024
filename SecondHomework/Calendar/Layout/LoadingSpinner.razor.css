@@ -1,0 +1,44 @@
+﻿.spinner {
+    border: 8px solid rgba(0, 0, 255, 0.1); /* Blue color */
+    border-left-color: #007bff; /* Blue color */
+    border-radius: 50%;
+    width: 50px; /* Default width */
+    height: 50px; /* Default height */
+    animation: spin 1s linear infinite;
+}
+
+.spinner-h1 {
+    width: 50px;
+    height: 50px;
+}
+
+.spinner-h2 {
+    width: 40px;
+    height: 40px;
+}
+
+.spinner-h3 {
+    width: 30px;
+    height: 30px;
+}
+
+.spinner-h4 {
+    width: 20px;
+    height: 20px;
+}
+
+.spinner-h5 {
+    width: 15px;
+    height: 15px;
+}
+
+.spinner-h6 {
+    width: 10px;
+    height: 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
